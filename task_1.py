@@ -1,5 +1,9 @@
+import json
+import sys
+
 from game import *
-from enum import *
+
+
 def load_words(path):
     try:
         with open(path, encoding="utf-8") as f:
@@ -11,16 +15,17 @@ def load_words(path):
         print(f"Файл {path} некорректный JSON")
         return None
 
+
 word_level = load_words("word.json")
 
 if word_level is None:
-    exit()
+    sys.exit()
 
 level = input("Выберите сложность 1) easy 2)medium 3)hard): ").lower()
 
 if level not in word_level:
     print("Такого уровня нет")
-    exit()
+    sys.exit()
 
 if __name__ == "__main__":
     game = Game(word_level)
