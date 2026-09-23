@@ -1,9 +1,8 @@
 import random
-import json
 from enum import *
 
 
-class TechnicalReturns(Enum):
+class TechnicalReturns(StrEnum):
     error = "error"
     repeat = "you're repeating"
     guessed = "you're guessed the word"
@@ -11,22 +10,22 @@ class TechnicalReturns(Enum):
 
 
 class Game:
-    def __init__(self,word_level : int,max_mistakes: int = 3):
-        self.__word_level: int = word_level
+    def __init__(self, word_level: dict[str, list[str]], max_mistakes: int = 3):
+        self.__word_level: dict[str, list[str]] = word_level
         self.__max_mistakes: int = max_mistakes
         self.__word: str = ""
         self.__mask: list[str] = []
         self.__guessed: set[str] = set()
         self.__mistakes: int = 3
 
-    def start_game(self, level : int):
-        self.__word: str = random.choice(self.__word_level[level])
-        self.__mask: list[str] = ["_"] * len(self.__word)
-        self.__guessed: set[str] = set()
-        self.__mistakes: int = 0
+    def start_game(self, level: str):
+        self.__word = random.choice(self.__word_level[level])
+        self.__mask = ["_"] * len(self.__word)
+        self.__guessed = set()
+        self.__mistakes = 0
 
     def guess(self, letter) -> str:
-        letter: str = letter.lower()
+        letter = letter.lower()
 
         if len(letter) != 1 or not letter.isalpha():
             return TechnicalReturns.error
@@ -54,7 +53,7 @@ class Game:
         return self.__max_mistakes - self.__mistakes
 
     @property
-    def guessed_letter(self) -> set[str]:
+    def guessed_letter(self) -> list[str]:
         return sorted(self.__guessed)
 
     @property
@@ -70,5 +69,5 @@ class Game:
         return self.is_won or self.is_lost
 
     @property
-    def word(self) -> int:
+    def word(self) -> str:
         return self.__word
