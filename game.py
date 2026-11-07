@@ -1,5 +1,5 @@
 import random
-from enum import *
+from enum import StrEnum
 
 
 class TechnicalReturns(StrEnum):
@@ -11,7 +11,7 @@ class TechnicalReturns(StrEnum):
 
 class Game:
     def __init__(self, word_level: dict[str, list[str]], max_mistakes: int = 3):
-        self.__word_level: dict[str, list[str]] = word_level
+        self.__game_level: dict[str, list[str]] = word_level
         self.__max_mistakes: int = max_mistakes
         self.__word: str = ""
         self.__mask: list[str] = []
@@ -19,7 +19,7 @@ class Game:
         self.__mistakes: int = 3
 
     def start_game(self, level: str):
-        self.__word = random.choice(self.__word_level[level])
+        self.__word = random.choice(self.__game_level[level])
         self.__mask = ["_"] * len(self.__word)
         self.__guessed = set()
         self.__mistakes = 0
