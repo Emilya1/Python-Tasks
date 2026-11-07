@@ -1,0 +1,9 @@
+.venv/
+data/
+.env
+.git/
+.idea/
+__pycache__/
+*.pyc
+hotel/
+111.py
